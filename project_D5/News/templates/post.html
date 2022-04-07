@@ -1,0 +1,93 @@
+{% extends 'static/index_detail.html' %}
+{% load custom_filters %}
+
+<!-- Название у нас будет news -->
+{% block title %}
+News - {{ post.title }}
+{% endblock title %}
+{% block h1 %}{{ post.title }}{% endblock h1 %}
+<!-- В контенте на странице мы выводим все посты -->
+{% block content %}
+<!-- Post content-->
+<article>
+    <!-- Post header-->
+    <header class="mb-4">
+        <!-- Post title-->
+        <h1 class="fw-bolder mb-1">{{ post.title|censor }}</h1>
+        <!-- Post meta content-->
+        <div class="text-muted fst-italic mb-2">Дата публикации {{ post.dateCreation }}</div>
+        <!-- Post categories-->
+        {% for category in post.postCategory.all %}
+        <a class="badge bg-secondary text-decoration-none link-light" href="#!">{{ category.name }}</a>
+        {% endfor %}
+
+    </header>
+    <!-- Preview image figure-->
+    <figure class="mb-4"><img class="img-fluid rounded" src="{{ post.postPhoto }}" alt="..." /></figure>
+    <!-- Post content-->
+    <section class="mb-5">
+        <p class="card-text">{{ post.text|censor }}</p>
+    </section>
+</article>
+<!-- Comments section-->
+<section class="mb-5">
+    <div class="card bg-light">
+        <div class="card-body">
+            <!-- Comment form-->
+            <form class="mb-4"><textarea class="form-control" rows="3" placeholder="Join the discussion and leave a comment!"></textarea></form>
+            <!-- Comment with nested comments-->
+            <div class="d-flex mb-4">
+                <!-- Parent comment-->
+                <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
+                <div class="ms-3">
+                    <div class="fw-bold">Commenter Name</div>
+                    If you're going to lead a space frontier, it has to be government; it'll never be private enterprise. Because the space frontier is dangerous, and it's expensive, and it has unquantified risks.
+                    <!-- Child comment 1-->
+                    <div class="d-flex mt-4">
+                        <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
+                        <div class="ms-3">
+                            <div class="fw-bold">Commenter Name</div>
+                            And under those conditions, you cannot establish a capital-market evaluation of that enterprise. You can't get investors.
+                        </div>
+                    </div>
+                    <!-- Child comment 2-->
+                    <div class="d-flex mt-4">
+                        <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
+                        <div class="ms-3">
+                            <div class="fw-bold">Commenter Name</div>
+                            When you put money directly to a problem, it makes a good headline.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Single comment-->
+            <div class="d-flex">
+                <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
+                <div class="ms-3">
+                    <div class="fw-bold">Commenter Name</div>
+                    When I look at the universe and all the ways the universe wants to kill us, I find it hard to reconcile that with statements of beneficence.
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock content %}
+
+{% block widjet %}
+{% if user.is_authenticated %}
+<div class="card mb-4">
+    <div class="card-header">Действия</div>
+    <div class="card-body">
+        <a class="btn btn-primary" href="{% url 'news_create' post.id %}">Редактировать →</a>
+        <a class="btn btn-primary" href="{% url 'news_delete' post.id %}">Удалить →</a>
+    </div>
+</div>
+{% else %}
+<div class="card mb-4">
+    <div class="card-header">Действия</div>
+    <div class="card-body">
+        <a class="btn btn-primary" href="{% url 'news_create' post.id %}">Подписаться на автора →</a>
+    </div>
+</div>
+{% endif %}
+{% endblock widjet %}

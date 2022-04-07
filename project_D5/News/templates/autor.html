@@ -1,0 +1,22 @@
+{% extends 'static/index_detail.html' %}
+{% load custom_filters %}
+
+{% block title %}
+News - {{ author.authorUser }}
+{% endblock title %}
+{% block h1 %}Старница автора {{ author.authorUser }}{% endblock h1 %}
+<!-- В контенте на странице мы выводим все посты -->
+{% block content %}
+<!-- Post content-->
+<article>
+    <!-- Post header-->
+    <header class="mb-4">
+        <!-- Post title-->
+        <h1 class="fw-bolder mb-1">{{ author.authorUser }}</h1>
+        <!-- Post meta content-->
+        <div class="text-muted fst-italic mb-2">Рейтинг: {{ author.ratingAuthor }}</div>
+        <!-- Post categories-->
+        <a class="badge bg-secondary text-decoration-none link-light" href="#!">{{ author.ratingAuthor }}</a>
+</article>
+
+{% endblock content %}
