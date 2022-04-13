@@ -49,7 +49,13 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google',
     'fpages',
     'django.contrib.flatpages'
+    'appointment',
+    'appointment.apps.AppointmentConfig',
+    'django-apscheduler.'
+    'django.contrib.flatpagesappointment'
 ]
+
+DEFAULT_FROM_EMAIL = " "
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -139,7 +145,7 @@ ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
-ACCOUNT_EMAIL_VERIFICATION = 'none'
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 ACCOUNT_FORMS = {'signup': 'sign.forms.BasicSignupForm'}
 
 
@@ -156,3 +162,18 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 STATICFILES_DIRS = [
     BASE_DIR / "static"
 ]
+
+EMAIL_HOST = 'smtp.yandex.ru'
+EMAIL_PORT = 465
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''
+EMAIL_USE_SSL = True
+
+ADMINS = [
+    ('Skavik', 'skavik46111@gmail.com'),
+]
+SERVER_EMAIL = " "
+
+APSCHEDULER_DATETIME_FORMAT = "N j, Y, f:s a"
+
+APSCHEDULER_RUN_NOW_TIMEOUT = 25
